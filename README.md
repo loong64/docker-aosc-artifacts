@@ -13,8 +13,13 @@ Docker repository for aosc-os
 * xfce-beta2_obsidian_rpm_20150604_en-US
 * xfce_cyanflame_dpkg_20150709_en-US
 
-# How to install:
+# How to install image:
 ```
-docker build -t aosc-os:#{version}
+docker pull jiegec/aosc-os:#{version}
+```
+
+# How to build image from sources:
+```
+docker build -t jiegec/aosc-os:#{version}
 https://github.com/jiegec/aosc-os/raw/master/#{version}/Dockerfile
 ```
