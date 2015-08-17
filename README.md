@@ -21,5 +21,5 @@ docker pull jiegec/aosc-os:#{version}
 # How to build image from sources:
 ```
 docker build -t jiegec/aosc-os:#{version}
-https://github.com/jiegec/aosc-os/raw/master/#{version}/Dockerfile
+https://github.com/AOSC-Dev/aosc-os-docker-files/raw/master/#{version}/Dockerfile
 ```
