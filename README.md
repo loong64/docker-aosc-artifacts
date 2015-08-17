@@ -23,3 +23,14 @@ docker pull jiegec/aosc-os:#{version}
 docker build -t jiegec/aosc-os:#{version}
 https://github.com/AOSC-Dev/aosc-os-docker-files/raw/master/#{version}/Dockerfile
 ```
+\\
+
+# How to make a new Dockerfile for a new version for maintainers:
+```
+./gen_dockerfile.rb
+(enter the download url of the new version)
+./gen_versions.rb
+git add .
+git commit -m "Add #{version}"
+git push
+```
