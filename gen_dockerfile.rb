@@ -7,9 +7,10 @@ end
 
 puts 'Enter download address:'
 address = gets.chomp
-puts 'Enter version name:'
-name = gets.chomp
-Dir.mkdir name unless File.exists? name
+name = address.sub(/^.*aosc-os[0-9]?_/, '')
+name = name.sub(/\.tar\.xz$/, '')
+
+Dir.mkdir name unless File.exist? name
 Dir.chdir name do
   File.write('Dockerfile', <<-EOS.undent
     FROM scratch
