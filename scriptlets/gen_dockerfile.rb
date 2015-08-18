@@ -15,7 +15,7 @@ Dir.chdir name do
   system 'wget', "#{address}"
   File.write('Dockerfile', <<-EOS.undent
     FROM scratch
-    MAINTAINER jiegec
+    MAINTAINER AOSC-Dev
     ADD #{address} /
     CMD ["/bin/bash"]
 EOS
