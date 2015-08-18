@@ -22,10 +22,11 @@ on how to improve them.
 
 # How to make a new Dockerfile for a new version for maintainers
 ```
+cd scriptlets
 ./gen_dockerfile.rb
-(enter the download url of the new version)
-./gen_versions.rb
-git add .
-git commit -m "Add #{version}"
-git push
+(enter the download url here)
+cd #{version}
+nano Dockerfile
+(do your customization here)
+(build the docker image now)
 ```
