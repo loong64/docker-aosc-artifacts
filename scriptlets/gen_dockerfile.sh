@@ -1,8 +1,8 @@
 #!/bin/bash
 if [[ "x${TARBALL_URL}" == "x" ]]; then
   read -r -p "[*] Enter tarball download URL: " TARBALL_URL
-  TARBALL_NAME="$(basename "${TARBALL_URL}")"
 fi
+TARBALL_NAME="$(basename "${TARBALL_URL}")"
 echo "[+] Downloading tarball..."
 wget -c "${TARBALL_URL}"
 if ! test -e "${TARBALL_NAME}"; then
