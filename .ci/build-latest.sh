@@ -28,4 +28,5 @@ EOF
 COMPONENT="${2/aosc-os/}"
 COMPONENT="${COMPONENT#"-"}"
 find_latest "$1" "${COMPONENT:-base}"
+export TAGNAME="aosc/$2"
 ./scriptlets/gen_dockerfile.sh

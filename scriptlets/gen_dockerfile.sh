@@ -41,7 +41,7 @@ cd -- "${TMPDIR}" || (echo "[!] WTF?" && exit 127)
 echo "[+] Copying files..."
 mv ../Dockerfile .
 cp "../${TARBALL_NAME}" .
-sudo docker build .
+sudo docker build -t "${TAGNAME:-aosc-os}" .
 cd ..
 echo "[+] Cleaning up..."
 rm -rf "${TMPDIR}"
