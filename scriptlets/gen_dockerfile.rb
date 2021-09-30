@@ -18,6 +18,7 @@ Dir.chdir name do
     MAINTAINER AOSC-Dev
     ADD #{address} /
     CMD ["/bin/bash"]
+    RUN sed -i 's/*               -       nice/#*               -       nice/' /etc/security/limits.conf
 EOS
             )
 end
