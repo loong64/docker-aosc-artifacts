@@ -51,7 +51,7 @@ jobs:
       - name: Build and Push AOSC Images
         uses: docker/build-push-action@v6
         with:
-          context: ${{ github.workspace }}/scriptlets
+          context: ${{ github.workspace }}
           platforms: linux/loong64
           push: true
           tags: |

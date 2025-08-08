@@ -8,12 +8,13 @@ function find_latest() {
 
     cat << 'EOF' > t.pl
 use strict;
-my $regex = qr/aosc-os_%var%_\d{8}(?>_amd64)?\.tar\.(?>gz|xz)/mp;
+my $regex = qr/aosc-os_%var%_\d{8}(?>_%arch%)?\.tar\.(?>gz|xz)/mp;
 my @matches = <STDIN> =~ /$regex/g;
 foreach my $match (@matches) {print "$match\n"};
 EOF
 
     sed -i "s/%var%/$2/g" t.pl
+    sed -i "s/%arch%/$1/g" t.pl
 
     TARBALL_NAME=$(curl -s "https://releases.aosc.io/os-$1/${VARIANT_FOLDER}/" | perl -n t.pl | sort | tail -n1)
     if [[ "x${TARBALL_NAME}" == 'x' ]]; then
