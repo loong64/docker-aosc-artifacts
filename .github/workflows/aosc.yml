@@ -1,0 +1,62 @@
+name: AOSC Artifacts
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        aosc_variant: ['aosc-os-container', 'aosc-os-buildkit']
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Setup Git
+        run: |
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
+      - name: Checkout sources
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Setup QEMU
+        uses: docker/setup-qemu-action@v3
+          
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Download and generate Dockerfile
+        id: docker_gen
+        run: |
+          sudo apt install perl -y
+          bash .ci/build-latest.sh loongarch64 ${{ matrix.aosc_variant }}
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push AOSC Images
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ github.workspace }}/scriptlets
+          platforms: linux/loong64
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/${{ matrix.aosc_variant }}:${{ steps.docker_gen.outputs.IMG_VER }}
+            ghcr.io/${{ github.repository_owner }}/${{ matrix.aosc_variant }}:latest
+          outputs: type=image,oci-mediatypes=true,compression=zstd,compression-level=3,force-compression=true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
