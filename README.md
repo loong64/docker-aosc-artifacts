@@ -2,6 +2,16 @@
 
 Docker image configuration, tools, and documentation repository.
 
+参考 https://github.com/AOSC-Dev/aosc-os-docker-files 制作的AOSC Docker Images
+
+## Image Lists 镜像列表
+
+|  Name             | Tag              | Pull Command                                           | Platform      |
+|-------------------|------------------|--------------------------------------------------------|---------------|
+| aosc-os-buildkit  | latest, 20250722 | `docker pull ghcr.io/loong64/aosc-os-buildkit:latest`  | linux/loong64 |
+| aosc-os-container | latest, 20250722 | `docker pull ghcr.io/loong64/aosc-os-container:latest` | linux/loong64 |
+
+
 ## Rationale
 
 AOSC OS has been distributing in the form of tarballs for a long time. It should make sense to provide
